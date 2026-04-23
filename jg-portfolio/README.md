@@ -6,5 +6,5 @@ I am a final-year of Bachelor of Science in Information Technology student and a
 📍 Location: Paranaque City, Metro Manila, Philippines
 
 Creative Portfolio comes in Two (2) Visual Appearances:
-Air Mode - the minimalist design and light mode for corporate setup and works
-Dev Mode - the full execution of the creative portfolio with animations and effects to a dark mode UI
+1. Air Mode - the minimalist design and light mode for corporate setup and works
+2. Dev Mode - the full execution of the creative portfolio with animations and effects to a dark mode UI
