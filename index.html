@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dev">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>John Gil Mayor | BSIT Portfolio</title>
+  <meta name="description" content="John Gil Mayor — IT Student at PUP, frontend developer, UI/UX designer, and systems builder."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Syne:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&family=Bebas+Neue&family=Anton&family=Titillium+Web:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Filter wrapper — accessibility filters go here, never on body
+       so position:fixed elements (widget, toast, cursors) stay anchored -->
+  <div id="acc-filter-wrap">
+
+  <!-- ═══════════════════════════════════════
+       CUSTOM CURSOR  (Dev Mode only)
+  ═══════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       TOAST NOTIFICATION (global)
+  ═══════════════════════════════════════ -->
+  <div id="toastNotif" role="alert" aria-live="polite" aria-atomic="true"></div>
+
+  <div id="cursorDot"   aria-hidden="true"></div>
+  <div id="cursorRing"  aria-hidden="true"></div>
+  <div id="cursorTrail" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════
+       MODE TRANSITION CURTAIN
+  ═══════════════════════════════════════ -->
+  <div id="modeCurtain" aria-hidden="true">
+    <div class="curtain-top"></div>
+    <div class="curtain-bottom"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       DEV MODE INTRO OVERLAY — Space Network
+  ═══════════════════════════════════════ -->
+  <div id="intro" aria-hidden="true">
+    <canvas id="introCanvas"></canvas>
+    <div class="intro-grid" aria-hidden="true"></div>
+    <!-- Warp streaks -->
+    <div class="warp-streaks" aria-hidden="true">
+      <div class="streak s1"></div><div class="streak s2"></div><div class="streak s3"></div>
+      <div class="streak s4"></div><div class="streak s5"></div><div class="streak s6"></div>
+      <div class="streak s7"></div><div class="streak s8"></div>
+    </div>
+    <div class="intro-content">
+      <div class="intro-logo-wrap">
+        <div class="intro-logo">
+          <img src="Images/Logos/rocket.gif" alt="Dev Mode Logo" class="intro-icon" style="width:140px;height:140px;object-fit:cover;border-radius:50%;" />
+        </div>
+      </div>
+      <div class="intro-text-wrap">
+        <div class="intro-line"><span class="intro-name">DEV MODE</span></div>
+        <div class="intro-line intro-tagline"><span>Initializing workspace...</span></div>
+      </div>
+      <div class="intro-loader">
+        <div class="intro-loader-track">
+          <div class="intro-loader-fill" id="introFill"></div>
+        </div>
+        <span class="intro-pct" id="introPct">0%</span>
+      </div>
+      <p class="intro-skip" id="introSkip">click anywhere or press any key to skip</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       AIR MODE INTRO OVERLAY — Cloud Drift
+  ═══════════════════════════════════════ -->
+  <div id="airIntro" aria-hidden="true" style="display: none;">
+    <div class="air-intro-sky">
+      <div class="cloud-layer cloud-far"></div>
+      <div class="cloud-layer cloud-mid"></div>
+      <div class="cloud-layer cloud-near"></div>
+      <div class="air-sun-glow"></div>
+    </div>
+    <!-- Flying Paper Airplanes -->
+    <div class="paper-planes" aria-hidden="true">
+      <svg class="paper-plane pp1" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.35)" stroke="rgba(15,29,61,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      <svg class="paper-plane pp2" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.25)" stroke="rgba(15,29,61,0.5)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      <svg class="paper-plane pp3" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.3)" stroke="rgba(15,29,61,0.55)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      <svg class="paper-plane pp4" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.2)" stroke="rgba(15,29,61,0.45)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      <svg class="paper-plane pp5" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.28)" stroke="rgba(15,29,61,0.5)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="air-intro-content">
+      <svg class="air-intro-icon" viewBox="0 0 24 24" fill="none" stroke="#0f1d3d" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="10" x2="12" y2="22" stroke-width="1.5" />
+        <g class="windmill-spin">
+          <path d="M12 10 L12 2 L16 6 Z" />
+          <path d="M12 10 L20 10 L16 14 Z" />
+          <path d="M12 10 L12 18 L8 14 Z" />
+          <path d="M12 10 L4 10 L8 6 Z" />
+          <circle cx="12" cy="10" r="1.5" fill="#0f1d3d" />
+        </g>
+      </svg>
+      <span class="air-intro-text">Air Mode</span>
+      <div class="air-intro-loader">
+        <div class="air-loader-track">
+          <div class="air-loader-fill" id="airIntroFill"></div>
+        </div>
+        <span class="air-intro-pct" id="airIntroPct">0%</span>
+      </div>
+      <span class="air-intro-sub">click anywhere or press any key to skip</span>
+    </div>
+  </div>
+
+  <!-- BACKGROUND CANVAS (Dev Mode) -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+  <nav class="drawer" id="drawer" aria-label="Mobile navigation">
+    <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    <div class="drawer-brand"><span class="jv-jon">Jon</span><span class="jv-voyor">Voyor</span></div>
+    <div class="drawer-links" id="drawerLinks">
+      <!-- populated by JS based on mode -->
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR  (shared)
+  ═══════════════════════════════════════ -->
+  <header class="nav" id="nav">
+    <button class="brand jonvoyor-brand" data-tab="home" aria-label="Home — JonVoyor">
+      <div class="jv-avatar-wrap">
+        <img src="Images/extracted_img_e4da1584.png" alt="John Gil Mayor" class="jv-avatar" />
+        <span class="jv-avatar-ring"></span>
+      </div>
+      <div class="jv-wordmark">
+        <span class="jv-jon">Jon</span><span class="jv-voyor">Voyor</span>
+        <span class="jv-bar"></span>
+      </div>
+    </button>
+
+    <!-- Dev Mode nav -->
+    <nav class="nav-links dev-nav" aria-label="Dev navigation">
+      <button class="nav-tab active" data-tab="home">Home</button>
+      <button class="nav-tab" data-tab="about">About</button>
+      <button class="nav-tab" data-tab="events">Events</button>
+      <button class="nav-tab" data-tab="works">Works</button>
+      <button class="nav-tab nav-cta" data-tab="contact">Contact</button>
+    </nav>
+
+    <!-- Air Mode nav -->
+    <nav class="nav-links air-nav" aria-label="Air navigation">
+      <button class="snav-tab active" data-stab="home">Home</button>
+      <button class="snav-tab" data-stab="about">About</button>
+      <button class="snav-tab" data-stab="works">Works</button>
+      <button class="snav-tab snav-cta" data-stab="contact">Contact</button>
+    </nav>
+
+    <!-- MODE TOGGLE -->
+    <div class="mode-toggle-wrap">
+      <button class="mode-toggle tele-btn" id="modeToggle" aria-label="Switch portfolio mode">
+        <img src="Images/Logos/rocket.gif" alt="Dev Mode" class="tele-icon icon-dev" style="width:44px;height:44px;object-fit:cover;border-radius:50%;" />
+        <svg class="tele-icon icon-air" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="10" x2="12" y2="22" stroke-width="1.5" />
+          <g class="windmill-spin">
+            <path d="M12 10 L12 2 L16 6 Z" />
+            <path d="M12 10 L20 10 L16 14 Z" />
+            <path d="M12 10 L12 18 L8 14 Z" />
+            <path d="M12 10 L4 10 L8 6 Z" />
+            <circle cx="12" cy="10" r="1.5" fill="currentColor" />
+          </g>
+        </svg>
+      </button>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       DEV MODE  — Tab pages
+  ═══════════════════════════════════════ -->
+  <div id="devMode" class="mode-layer">
+    <main class="page-wrap">
+
+      <!-- ── HOME ────────────────────────────── -->
+      <section class="tab-panel active" id="tab-home" role="tabpanel">
+        <div class="hero-impact" id="devHeroMain">
+          <!-- Background Aura Glows & Fire Smoke -->
+          <div class="aura-glow" aria-hidden="true">
+             <div class="aura-orb aura-red"></div>
+             <div class="aura-orb aura-yellow"></div>
+             <div class="fire-smoke"></div>
+          </div>
+          
+          <div class="hero-impact-inner">
+             <!-- Image on the Left -->
+             <div class="impact-image-wrap reveal">
+                <img src="Images/Dev Mode pics/Dev Mode Hero pic.png" alt="John Gil Mayor" />
+             </div>
+
+             <!-- Text on the Right -->
+             <div class="hero-impact-content">
+               <div class="impact-chip reveal">
+                  <span class="pulse-dot"></span> AVAILABLE FOR IT DEVELOPMENT ALIGNED ROLES
+               </div>
+               
+               <div class="impact-title-group reveal reveal-delay">
+                  <div class="hero-hi-typing"><span class="typing-text">Hi, I'm</span><span class="typing-cursor">|</span></div>
+                  <h1 class="impact-name impact-name-glitch" data-text-1="JOHN GIL" data-text-2="MAYOR">
+                     <span data-text="JOHN GIL">JOHN GIL</span>
+                     <span data-text="MAYOR">MAYOR</span>
+                  </h1>
+               </div>
+               
+               <!-- Futuristic Screen for Intro Message -->
+               <div class="hero-intro-screen reveal reveal-delay">
+                 <div class="screen-glass">
+                   <div class="screen-scanline"></div>
+                   <p class="screen-text">I help businesses turn digital concepts into real, scalable systems.</p>
+                 </div>
+               </div>
+               
+               <div class="impact-cta-row reveal reveal-delay-2">
+                  <button class="impact-btn-about" data-tab="about">About Me</button>
+                  <button class="impact-btn-contact" data-tab="contact">Get in Touch</button>
+               </div>
+             </div>
+          </div>
+        </div>
+
+        <!-- Affiliated Organizations Marquee -->
+        <div class="affiliates-marquee reveal reveal-delay">
+           <div class="marquee-track">
+              <div class="marquee-content">
+                 <span class="affil-item"><i class="fa-solid fa-graduation-cap"></i> PUP Manila</span>
+                 <span class="affil-item"><i class="fa-brands fa-google"></i> Google Developer Groups</span>
+                 <span class="affil-item"><i class="fa-solid fa-code"></i> Developer Student Clubs</span>
+                 <span class="affil-item"><i class="fa-solid fa-laptop-code"></i> CCIS Department</span>
+                 <span class="affil-item"><i class="fa-solid fa-building-columns"></i> Polytechnic University</span>
+                 <span class="affil-item"><i class="fa-solid fa-network-wired"></i> IT Society</span>
+              </div>
+              <div class="marquee-content" aria-hidden="true">
+                 <span class="affil-item"><i class="fa-solid fa-graduation-cap"></i> PUP Manila</span>
+                 <span class="affil-item"><i class="fa-brands fa-google"></i> Google Developer Groups</span>
+                 <span class="affil-item"><i class="fa-solid fa-code"></i> Developer Student Clubs</span>
+                 <span class="affil-item"><i class="fa-solid fa-laptop-code"></i> CCIS Department</span>
+                 <span class="affil-item"><i class="fa-solid fa-building-columns"></i> Polytechnic University</span>
+                 <span class="affil-item"><i class="fa-solid fa-network-wired"></i> IT Society</span>
+              </div>
+              <div class="marquee-content" aria-hidden="true">
+                 <span class="affil-item"><i class="fa-solid fa-graduation-cap"></i> PUP Manila</span>
+                 <span class="affil-item"><i class="fa-brands fa-google"></i> Google Developer Groups</span>
+                 <span class="affil-item"><i class="fa-solid fa-code"></i> Developer Student Clubs</span>
+                 <span class="affil-item"><i class="fa-solid fa-laptop-code"></i> CCIS Department</span>
+                 <span class="affil-item"><i class="fa-solid fa-building-columns"></i> Polytechnic University</span>
+                 <span class="affil-item"><i class="fa-solid fa-network-wired"></i> IT Society</span>
+              </div>
+              <div class="marquee-content" aria-hidden="true">
+                 <span class="affil-item"><i class="fa-solid fa-graduation-cap"></i> PUP Manila</span>
+                 <span class="affil-item"><i class="fa-brands fa-google"></i> Google Developer Groups</span>
+                 <span class="affil-item"><i class="fa-solid fa-code"></i> Developer Student Clubs</span>
+                 <span class="affil-item"><i class="fa-solid fa-laptop-code"></i> CCIS Department</span>
+                 <span class="affil-item"><i class="fa-solid fa-building-columns"></i> Polytechnic University</span>
+                 <span class="affil-item"><i class="fa-solid fa-network-wired"></i> IT Society</span>
+              </div>
+           </div>
+        </div>
+
+        <!-- GDG ID Banner at Bottom of Home -->
+        <div class="gdg-bottom-banner reveal">
+           <!-- GDG Stories Panel (Instagram-style) beside the ID card -->
+           <div class="gdg-stories-panel" id="gdgStoriesPanel">
+             <div class="gdg-stories-bar" id="gdgStoriesBar">
+               <div class="gdg-story-seg active" id="gdgSeg0"><div class="gdg-story-seg-fill" id="gdgFill0"></div></div>
+               <div class="gdg-story-seg" id="gdgSeg1"><div class="gdg-story-seg-fill" id="gdgFill1"></div></div>
+               <div class="gdg-story-seg" id="gdgSeg2"><div class="gdg-story-seg-fill" id="gdgFill2"></div></div>
+               <div class="gdg-story-seg" id="gdgSeg3"><div class="gdg-story-seg-fill" id="gdgFill3"></div></div>
+               <div class="gdg-story-seg" id="gdgSeg4"><div class="gdg-story-seg-fill" id="gdgFill4"></div></div>
+               <div class="gdg-story-seg" id="gdgSeg5"><div class="gdg-story-seg-fill" id="gdgFill5"></div></div>
+               <div class="gdg-story-seg" id="gdgSeg6"><div class="gdg-story-seg-fill" id="gdgFill6"></div></div>
+             </div>
+             <div class="gdg-stories-image-wrap" id="gdgStoriesImgWrap">
+               <div class="gdg-story-img active" id="gdgStory0">
+                 <img src="Images/stories/photo_2026-04-23_13-46-05.jpg" alt="Story 1" />
+               </div>
+               <div class="gdg-story-img" id="gdgStory1">
+                 <img src="Images/stories/photo_2026-04-23_13-46-03.jpg" alt="Story 2" />
+               </div>
+               <div class="gdg-story-img" id="gdgStory2">
+                 <img src="Images/stories/photo_2026-04-23_13-45-54.jpg" alt="Story 3" />
+               </div>
+               <div class="gdg-story-img" id="gdgStory3">
+                 <img src="Images/stories/photo_2026-04-23_17-23-05.jpg" alt="Story 4" />
+               </div>
+               <div class="gdg-story-img" id="gdgStory4">
+                 <img src="Images/stories/photo_2026-04-23_13-45-42.jpg" alt="Story 5" />
+               </div>
+               <div class="gdg-story-img" id="gdgStory5">
+                 <img src="Images/stories/photo_2026-04-23_17-56-46.jpg" alt="Story 6" />
+               </div>
+               <div class="gdg-story-img" id="gdgStory6">
+                 <img src="Images/stories/photo_2026-04-23_13-46-00.jpg" alt="Story 7" />
+               </div>
+               <!-- Hearts flood container -->
+               <div class="gdg-heart-flood" id="gdgHeartFlood"></div>
+             </div>
+             <div class="gdg-stories-label">TAP THE PHOTO TO REACT</div>
+           </div>
+
+           <div class="gdg-id-card tilt-card" style="padding: 0; display: flex; flex: none; width: 340px; max-width: 100%;">
+              <div class="card-shine"></div>
+              <img src="Images/IDs/GDG PUP ID.png" alt="GDG ID" style="width: 100%; height: auto; display: block; border-radius: 20px;" />
+           </div>
+        </div>
+      </section>
+
+      <!-- ── ABOUT + SKILLS ────────────────── -->
+      <section class="tab-panel" id="tab-about" role="tabpanel">
+        <div class="section-inner">
+          <!-- ABOUT SECTION -->
+          <div class="section-label reveal">About</div>
+          <h2 class="section-title reveal">Who I Am</h2>
+          <div class="about-grid">
+            <div class="about-card tilt-card reveal">
+              <div class="card-shine"></div>
+              <div class="about-icon">🎓</div><h3>Background</h3>
+              <p>I'm an IT student at <strong>PUP</strong> graduating this year, passionate about building real systems — from barangay digitization platforms to UI/UX dashboards.</p>
+            </div>
+            <div class="about-card tilt-card reveal reveal-delay">
+              <div class="card-shine"></div>
+              <div class="about-icon">🛠️</div><h3>What I Build</h3>
+              <p>I specialize in <strong>frontend development</strong>, clean UI/UX design, and systems thinking. I love turning complex workflows into intuitive interfaces.</p>
+            </div>
+            <div class="about-card tilt-card reveal reveal-delay-2">
+              <div class="card-shine"></div>
+              <div class="about-icon">🎯</div><h3>What's Next</h3>
+              <p>Seeking an <strong>internship or junior role</strong> in frontend, systems development, or QA — where I can contribute and grow while learning backend properly.</p>
+            </div>
+          </div>
+          <div class="section-label reveal" style="margin-top:60px">Journey</div>
+          <h2 class="section-title reveal">My Timeline</h2>
+
+          <!-- ══════════════════════════════════════════
+               SPACE ROADMAP TIMELINE
+          ══════════════════════════════════════════ -->
+          <div class="space-roadmap" id="spaceRoadmap">
+
+            <!-- Vertical launch beam -->
+            <div class="srm-beam">
+              <div class="srm-beam-fill" id="srmBeamFill"></div>
+            </div>
+
+            <!-- Nodes -->
+            <div class="srm-node srm-node--left reveal" data-year="2022">
+              <div class="srm-orbit">
+                <div class="srm-planet srm-planet--blue">
+                  <span class="srm-year">2022</span>
+                </div>
+                <div class="srm-ring"></div>
+                <div class="srm-satellite srm-satellite--ship" aria-hidden="true">🚀</div>
+              </div>
+              <div class="srm-connector srm-connector--left"></div>
+              <div class="srm-card srm-card--left">
+                <div class="srm-card-icon">🚀</div>
+                <h4>Launch — PUP Parañaque</h4>
+                <p>Enrolled in BSIT at the Polytechnic University of the Philippines Parañaque. Began my IT journey — programming fundamentals, networking, and systems thinking.</p>
+                <div class="srm-tags"><span>BSIT</span><span>PUP</span><span>Year 1</span></div>
+              </div>
+            </div>
+
+            <div class="srm-node srm-node--right reveal reveal-delay" data-year="2023">
+              <div class="srm-orbit">
+                <div class="srm-planet srm-planet--purple">
+                  <span class="srm-year">2023</span>
+                </div>
+                <div class="srm-ring"></div>
+                <div class="srm-satellite srm-satellite--sat" aria-hidden="true">🛰️</div>
+              </div>
+              <div class="srm-connector srm-connector--right"></div>
+              <div class="srm-card srm-card--right">
+                <div class="srm-card-icon">🛰️</div>
+                <h4>First Orbit — Web Foundations</h4>
+                <p>Built my first real HTML/CSS/JS projects. Developed CLICKizenship — a civic tech platform for barangay digital services — discovering a passion for UI/UX design.</p>
+                <div class="srm-tags"><span>HTML</span><span>CSS</span><span>JS</span><span>UI/UX</span></div>
+              </div>
+            </div>
+
+            <div class="srm-node srm-node--left reveal reveal-delay" data-year="2024">
+              <div class="srm-orbit">
+                <div class="srm-planet srm-planet--orange">
+                  <span class="srm-year">2024</span>
+                </div>
+                <div class="srm-ring"></div>
+                <div class="srm-satellite srm-satellite--ufo" aria-hidden="true">🛸</div>
+              </div>
+              <div class="srm-connector srm-connector--left"></div>
+              <div class="srm-card srm-card--left">
+                <div class="srm-card-icon">🌌</div>
+                <h4>Deep Space — Systems & Logistics</h4>
+                <p>Completed GlideN'Go (fleet & cold-chain logistics UI), LAKbayGAbayPh (82-province map generator), and OJT Attendance Tracker. Expanded to Python, Flask, and data visualization.</p>
+                <div class="srm-tags"><span>Python</span><span>Flask</span><span>Figma</span><span>Data Viz</span></div>
+              </div>
+            </div>
+
+            <div class="srm-node srm-node--right reveal reveal-delay-2" data-year="2025">
+              <div class="srm-orbit">
+                <div class="srm-planet srm-planet--cyan">
+                  <span class="srm-year">2025</span>
+                </div>
+                <div class="srm-ring srm-ring--pulse"></div>
+                <div class="srm-satellite srm-satellite--comet" aria-hidden="true">☄️</div>
+              </div>
+              <div class="srm-connector srm-connector--right"></div>
+              <div class="srm-card srm-card--right srm-card--active">
+                <div class="srm-card-badge">IN PROGRESS</div>
+                <div class="srm-card-icon">⚡</div>
+                <h4>Capstone Project 1</h4>
+                <p>First capstone phase — research, problem definition, and initial system design. Building and presenting a full-scale IT solution with a team.</p>
+                <div class="srm-tags"><span>Capstone I</span><span>Research</span><span>Year 4</span></div>
+              </div>
+            </div>
+
+            <div class="srm-node srm-node--left reveal" data-year="2026">
+              <div class="srm-orbit">
+                <div class="srm-planet srm-planet--gold srm-planet--glow">
+                  <span class="srm-year">2026</span>
+                </div>
+                <div class="srm-ring srm-ring--double"></div>
+                <div class="srm-satellite srm-satellite--star" aria-hidden="true">⭐</div>
+              </div>
+              <div class="srm-connector srm-connector--left"></div>
+              <div class="srm-card srm-card--left srm-card--final">
+                <div class="srm-card-badge srm-card-badge--gold">MISSION COMPLETE</div>
+                <div class="srm-card-icon">🎓</div>
+                <h4>Capstone Project 2 &amp; Graduation</h4>
+                <p>Final capstone — full system deployment and defense. Graduating with a BSIT degree from PUP Parañaque, ready to launch as a junior developer or IT professional.</p>
+                <div class="srm-tags"><span>Capstone II</span><span>BSIT Graduate</span><span>PUP 2026</span></div>
+              </div>
+            </div>
+
+            <!-- Destination — Earth Landing -->
+            <div class="srm-destination">
+              <div class="srm-earth-scene">
+
+                <!-- Rocket descending from above -->
+                <div class="srm-earth-space">
+                  <div class="srm-rocket-descent">🚀</div>
+                </div>
+
+                <!-- Earth globe with orbit ring -->
+                <div class="srm-earth-wrap">
+                  <div class="srm-earth"></div>
+                  <div class="srm-earth-orbit"></div>
+                  <div class="srm-earth-ripples">
+                    <span class="srm-ripple"></span>
+                    <span class="srm-ripple"></span>
+                    <span class="srm-ripple"></span>
+                  </div>
+                </div>
+
+                <!-- Label -->
+                <div class="srm-earth-text">
+                  <div class="srm-earth-title">More Projects to Develop Soon</div>
+                  <div class="srm-earth-sub">// returning to Earth · mission continues</div>
+                </div>
+
+              </div>
+            </div>
+
+          </div><!-- /space-roadmap -->
+
+          <!-- ── SKILLS SECTION (inside About tab) ── -->
+          <div class="skills-divider reveal"></div>
+          <div class="section-label reveal" style="margin-top:60px">Skills</div>
+          <h2 class="section-title reveal">My Toolkit</h2>
+          <p class="section-sub reveal">Tools and technologies I use to build and learn fast.</p>
+
+          <div class="toolkit-columns">
+            <div class="toolkit-col-left">
+              <!-- ── Run Code Skills Analyzer (Python trick) ── -->
+              <div class="run-code-viewer reveal" id="runCodeViewer">
+            <!-- Toolbar -->
+            <div class="rca-toolbar">
+              <div class="rca-dots">
+                <span class="py-dot py-red"></span>
+                <span class="py-dot py-yellow"></span>
+                <span class="py-dot py-green"></span>
+              </div>
+              <span class="rca-filename">skills_analyzer.py</span>
+              <button class="rca-run-btn" id="runCodeBtn" aria-label="Run Python skills analyzer">
+                <svg class="rca-play-icon" viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><polygon points="5,3 19,12 5,21"/></svg>
+                <span id="runCodeLabel">Run Code</span>
+              </button>
+            </div>
+
+            <!-- Python source code (always visible) -->
+            <pre class="rca-code"><code><span class="py-comment"># skills_analyzer.py — John Gil Mayor</span>
+<span class="py-comment"># Proficiency Scanner · Portfolio v5.0</span>
+
+<span class="py-kw">import</span> time
+
+<span class="py-comment"># Define skill proficiency data</span>
+skills = {
+    <span class="py-str">"HTML"</span>:        <span class="py-num">90</span>,
+    <span class="py-str">"CSS"</span>:         <span class="py-num">80</span>,
+    <span class="py-str">"JavaScript"</span>:  <span class="py-num">70</span>,
+    <span class="py-str">"PHP"</span>:         <span class="py-num">80</span>,
+    <span class="py-str">"MySQL"</span>:       <span class="py-num">70</span>,
+    <span class="py-str">"C++"</span>:         <span class="py-num">30</span>,
+    <span class="py-str">"Python"</span>:      <span class="py-num">70</span>,
+}
+
+<span class="py-kw">def</span> <span class="py-builtin">analyze</span>(data):
+    <span class="py-builtin">print</span>(<span class="py-str">"→ Loading skill dataset..."</span>)
+    time.sleep(<span class="py-num">0.4</span>)
+    <span class="py-builtin">print</span>(<span class="py-str">f"→ Found {<span class='py-builtin'>len</span>(data)} languages."</span>)
+    time.sleep(<span class="py-num">0.3</span>)
+    <span class="py-builtin">print</span>(<span class="py-str">"→ Computing proficiency scores..."</span>)
+    time.sleep(<span class="py-num">0.5</span>)
+    <span class="py-kw">for</span> lang, score <span class="py-kw">in</span> data.items():
+        bar = <span class="py-str">"█"</span> * (score // <span class="py-num">10</span>) + <span class="py-str">"░"</span> * (<span class="py-num">10</span> - score // <span class="py-num">10</span>)
+        <span class="py-builtin">print</span>(<span class="py-str">f"  {lang:<span class='py-num'>12</span>} [{bar}] {score}%"</span>)
+    <span class="py-builtin">print</span>(<span class="py-str">"\n✅ Analysis complete! Rendering visuals..."</span>)
+
+analyze(skills)</code></pre>
+
+            <!-- Terminal output (injected by JS) -->
+            <div class="rca-terminal" id="rcaTerminal" hidden>
+              <div class="rca-term-bar">
+                <span>● Terminal</span>
+                <span class="rca-term-path">~/portfolio $ python skills_analyzer.py</span>
+              </div>
+              <div class="rca-term-body" id="rcaTermBody"></div>
+            </div>
+          </div>
+
+            </div> <!-- end toolkit-col-left -->
+            <div class="toolkit-col-right">
+              <!-- Skills Grid — locked until Run Code fires -->
+              <div class="skills-grid" id="skillsGrid" style="margin-top: 0;">
+            <div class="skill-item skill-locked reveal">
+              <div class="skill-header">
+                <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+                <span class="skill-name">HTML</span>
+                <span class="skill-pct" data-pct="90">—</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-item skill-locked reveal reveal-delay">
+              <div class="skill-header">
+                <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+                <span class="skill-name">CSS</span>
+                <span class="skill-pct" data-pct="80">—</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+            </div>
+            <div class="skill-item skill-locked reveal reveal-delay-2">
+              <div class="skill-header">
+                <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-pct" data-pct="70">—</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
+            </div>
+            <div class="skill-item skill-locked reveal">
+              <div class="skill-header">
+                <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" />
+                <span class="skill-name">PHP</span>
+                <span class="skill-pct" data-pct="80">—</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+            </div>
+            <div class="skill-item skill-locked reveal reveal-delay">
+              <div class="skill-header">
+                <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+                <span class="skill-name">MySQL</span>
+                <span class="skill-pct" data-pct="70">—</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
+            </div>
+            <div class="skill-item skill-locked reveal reveal-delay-2">
+              <div class="skill-header">
+                <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" />
+                <span class="skill-name">C++</span>
+                <span class="skill-pct" data-pct="30">—</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="30"></div></div>
+            </div>
+            <div class="skill-item skill-locked reveal" style="grid-column:1/-1;max-width:50%;margin:0 auto;width:100%">
+              <div class="skill-header">
+                <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+                <span class="skill-name">Python</span>
+                <span class="skill-pct" data-pct="70">—</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
+            </div>
+          </div>
+            </div> <!-- end toolkit-col-right -->
+          </div> <!-- end toolkit-columns -->
+
+          <!-- Cisco Badges -->
+          <div class="section-label reveal" style="margin-top:52px">Certifications</div>
+          <h3 class="subsection-title reveal">Cisco Badges</h3>
+          <div class="cisco-badges-row reveal">
+            <div class="cisco-badge-sq img-placeholder" title="Cisco Badge 1 — Replace with your badge">
+              <i class="fa-solid fa-certificate"></i>
+              <span>Cisco Badge 1</span>
+            </div>
+            <div class="cisco-badge-sq img-placeholder" title="Cisco Badge 2 — Replace with your badge">
+              <i class="fa-solid fa-certificate"></i>
+              <span>Cisco Badge 2</span>
+            </div>
+            <div class="cisco-badge-sq img-placeholder" title="Cisco Badge 3 — Replace with your badge">
+              <i class="fa-solid fa-certificate"></i>
+              <span>Cisco Badge 3</span>
+            </div>
+          </div>
+
+          <!-- Languages Carousel -->
+          <div class="section-label reveal" style="margin-top:52px">Languages</div>
+          <h3 class="subsection-title reveal">My Tech Stack</h3>
+          <div class="org-carousel-wrap reveal">
+            <div class="org-carousel" id="orgCarousel">
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="22" height="22" alt="HTML5" /></div>
+                <span>HTML5</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="22" height="22" alt="CSS3" /></div>
+                <span>CSS3</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="22" height="22" alt="JavaScript" /></div>
+                <span>JavaScript</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" width="22" height="22" alt="PHP" /></div>
+                <span>PHP</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="22" height="22" alt="MySQL" /></div>
+                <span>MySQL</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="22" height="22" alt="C++" /></div>
+                <span>C++</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="22" height="22" alt="Python" /></div>
+                <span>Python</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="22" height="22" alt="Next.js" /></div>
+                <span>Next.js</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="22" height="22" alt="React" /></div>
+                <span>React</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" width="22" height="22" alt="Tailwind CSS" /></div>
+                <span>Tailwind CSS</span>
+              </div>
+              <div class="org-item">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="22" height="22" alt="Git" /></div>
+                <span>Git</span>
+              </div>
+              <!-- Duplicates for infinite loop -->
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="22" height="22" alt="" /></div>
+                <span>HTML5</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="22" height="22" alt="" /></div>
+                <span>CSS3</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="22" height="22" alt="" /></div>
+                <span>JavaScript</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" width="22" height="22" alt="" /></div>
+                <span>PHP</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="22" height="22" alt="" /></div>
+                <span>MySQL</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="22" height="22" alt="" /></div>
+                <span>C++</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="22" height="22" alt="" /></div>
+                <span>Python</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="22" height="22" alt="" /></div>
+                <span>Next.js</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="22" height="22" alt="" /></div>
+                <span>React</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" width="22" height="22" alt="" /></div>
+                <span>Tailwind CSS</span>
+              </div>
+              <div class="org-item" aria-hidden="true">
+                <div class="org-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="22" height="22" alt="" /></div>
+                <span>Git</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-label reveal" style="margin-top:48px">Also familiar with</div>
+          <div class="tag-cloud reveal">
+            <span class="tag">Git &amp; GitHub</span><span class="tag">Figma</span><span class="tag">Responsive Design</span>
+            <span class="tag">Data Science</span><span class="tag">QA Testing</span><span class="tag">Linux Basics</span>
+            <span class="tag">REST APIs</span><span class="tag">Agile / Scrum</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── EVENTS ────────────────────────── -->
+      <section class="tab-panel" id="tab-events" role="tabpanel">
+        <div class="section-inner">
+          <div class="section-label reveal">Photo Ops</div>
+          <h2 class="section-title reveal">Events Gallery</h2>
+          <p class="section-sub reveal">Moments from academic and tech events I attended.</p>
+
+          <!-- Event 1: Research Colloquium 2026 -->
+          <div class="event-block reveal">
+            <div class="event-header">
+              <div class="event-icon">🔬</div>
+              <div>
+                <h3 class="event-title">Research Colloquium 2026</h3>
+                <span class="event-date">PUP Paranaque Campus</span>
+              </div>
+            </div>
+            <div class="event-photos">
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_5395bd71.jpg" alt="Research Colloquium 2026 — Moment 1" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Research Colloquium 2026 — Moment 1</p>
+              </div>
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_b19133fc.jpg" alt="Research Colloquium 2026 — Moment 2" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Research Colloquium 2026 — Moment 2</p>
+              </div>
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_36262acd.jpg" alt="Research Colloquium 2026 — Moment 3" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Research Colloquium 2026 — Moment 3</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2: Cosmos 2026 -->
+          <div class="event-block reveal reveal-delay">
+            <div class="event-header">
+              <div class="event-icon">🌌</div>
+              <div>
+                <h3 class="event-title">Cosmos 2026</h3>
+                <span class="event-date">PUP Manila</span>
+              </div>
+            </div>
+            <div class="event-photos">
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_f4d95a25.jpg" alt="Cosmos 2026 — Moment 1" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Cosmos 2026 — Moment 1</p>
+              </div>
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_e88f74c7.jpg" alt="Cosmos 2026 — Moment 2" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Cosmos 2026 — Moment 2</p>
+              </div>
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_d09ce5f1.jpg" alt="Cosmos 2026 — Moment 3" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Cosmos 2026 — Moment 3</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3: Stellar Bootcamp 2026 -->
+          <div class="event-block reveal reveal-delay-2">
+            <div class="event-header">
+              <div class="event-icon">⭐</div>
+              <div>
+                <h3 class="event-title">Stellar Bootcamp 2026</h3>
+                <span class="event-date">White Cloak Technologies Inc., Ortigas Center, Pasig City</span>
+              </div>
+            </div>
+            <div class="event-photos">
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_939dd785.jpg" alt="Stellar Bootcamp 2026 — Moment 1" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Stellar Bootcamp 2026 — Moment 1</p>
+              </div>
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_e0d4a059.jpg" alt="Stellar Bootcamp 2026 — Moment 2" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Stellar Bootcamp 2026 — Moment 2</p>
+              </div>
+              <div class="event-photo-card">
+                <img src="Images/extracted_img_914ccf83.jpg" alt="Stellar Bootcamp 2026 — Moment 3" style="width:100%;height:200px;object-fit:cover;border-radius:10px;" />
+                <p class="event-photo-cap">Stellar Bootcamp 2026 — Moment 3</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── WORKS ────────────────────────── -->
+      <section class="tab-panel" id="tab-works" role="tabpanel">
+        <div class="section-inner">
+          <div class="section-label reveal">Works</div>
+          <h2 class="section-title reveal">Projects &amp; Works</h2>
+          <p class="section-sub reveal">Real builds, academic projects, and ongoing experiments.</p>
+
+          <!-- PINNED ZONE (Dev Mode) -->
+          <div class="dev-pinned-zone" id="devPinnedZone" style="display:none;">
+            <div class="dev-pinned-label"><span class="dev-pin-icon-label">📌</span> Pinned to Top</div>
+            <div class="dev-pinned-list" id="devPinnedList"></div>
+          </div>
+
+          <div class="projects-grid" id="devProjectsGrid">
+
+            <!-- 1. CLICKizenship -->
+            <article class="project-card dev-proj-card reveal" data-pid="clickizenship">
+              <div class="project-glow"></div>
+              <button class="proj-pin-btn" aria-label="Pin project" title="Pin to top" onclick="toggleDevPin(this,'clickizenship')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+              </button>
+              <div class="proj-imgs-strip">
+                <img src="Images/Project Pictures/CLICKizenship  (3).png" alt="CLICKizenship screenshot 1" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/CLICKizenship  (1).png" alt="CLICKizenship screenshot 2" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/CLICKizenship  (2).png" alt="CLICKizenship screenshot 3" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/CLICKizenship  (4).png" alt="CLICKizenship screenshot 4" class="proj-img-clickable" />
+              </div>
+              <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+              <div class="project-top">
+                <div class="project-badge">Featured</div>
+                <div class="project-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              </div>
+              <h3>CLICKizenship</h3>
+              <p class="proj-subtitle">Barangay DigiServices Request System</p>
+              <p>Civic tech platform digitizing barangay government services with request modules, and clean form UX for local government use.</p>
+            </article>
+
+            <!-- 2. GlideN'Go -->
+            <article class="project-card dev-proj-card reveal" data-pid="glidego">
+              <div class="project-glow"></div>
+              <button class="proj-pin-btn" aria-label="Pin project" title="Pin to top" onclick="toggleDevPin(this,'glidego')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+              </button>
+              <div class="proj-imgs-strip">
+                <img src="Images/Project Pictures/GlideN'Go (1).png" alt="GlideN'Go screenshot 1" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/GlideN'Go (2).png" alt="GlideN'Go screenshot 2" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/GlideN'Go (3).png" alt="GlideN'Go screenshot 3" class="proj-img-clickable" />
+              </div>
+              <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+              <div class="project-top">
+                <div class="project-tags"><span>UI/UX</span><span>Figma</span><span>Logistics</span></div>
+              </div>
+              <h3>GlideN'Go</h3>
+              <p class="proj-subtitle">Professional Fleet &amp; Cold-Chain Logistics</p>
+              <p>A logistics management platform UI for professional fleet operations and cold-chain delivery tracking with real-time route monitoring and status dashboards.</p>
+            </article>
+
+            <!-- 3. LAKbayGAbayPh -->
+            <article class="project-card dev-proj-card reveal reveal-delay" data-pid="lakbay">
+              <div class="project-glow"></div>
+              <button class="proj-pin-btn" aria-label="Pin project" title="Pin to top" onclick="toggleDevPin(this,'lakbay')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+              </button>
+              <div class="proj-imgs-strip">
+                <img src="Images/Project Pictures/LAKbayGAbayPh (1).png" alt="LAKbayGAbayPh screenshot 1" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/LAKbayGAbayPh (2).png" alt="LAKbayGAbayPh screenshot 2" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/LAKbayGAbayPh (3).png" alt="LAKbayGAbayPh screenshot 3" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/LAKbayGAbayPh (4).png" alt="LAKbayGAbayPh screenshot 4" class="proj-img-clickable" />
+              </div>
+              <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+              <div class="project-top">
+                <div class="project-tags"><span>Python</span><span>Maps</span><span>Data</span></div>
+              </div>
+              <h3>LAKbayGAbayPh</h3>
+              <p class="proj-subtitle">Traversing Project 82 — MapaSayo Generator</p>
+              <p>A data-driven map generator traversing all 82 provinces of the Philippines, creating personalized travel itinerary maps with route visualization and cultural highlights.</p>
+            </article>
+
+            <!-- 4. OJT Attendance Tracker -->
+            <article class="project-card dev-proj-card reveal reveal-delay-2" data-pid="ojt">
+              <div class="project-glow"></div>
+              <button class="proj-pin-btn" aria-label="Pin project" title="Pin to top" onclick="toggleDevPin(this,'ojt')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+              </button>
+              <div class="proj-imgs-strip">
+                <img src="Images/Project Pictures/OJT ATS (3).png" alt="OJT Tracker screenshot 1" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/OJT ATS (1).png" alt="OJT Tracker screenshot 2" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/OJT ATS (2).png" alt="OJT Tracker screenshot 3" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/OJT ATS (4).png" alt="OJT Tracker screenshot 4" class="proj-img-clickable" />
+              </div>
+              <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+              <div class="project-top">
+                <div class="project-tags"><span>Python</span><span>Flask</span><span>QR</span></div>
+              </div>
+              <h3>OJT Attendance Tracker</h3>
+              <p class="proj-subtitle">OJT Attendance Tracker System</p>
+              <p>A QR-code based OJT attendance management system with real-time logging, reporting dashboard, and admin controls.</p>
+            </article>
+
+            <!-- 5. Passfolio in One -->
+            <article class="project-card dev-proj-card reveal" data-pid="passfolio">
+              <div class="project-glow"></div>
+              <button class="proj-pin-btn" aria-label="Pin project" title="Pin to top" onclick="toggleDevPin(this,'passfolio')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+              </button>
+              <div class="proj-imgs-strip">
+                <img src="Images/Project Pictures/PassFolio (1).png" alt="Passfolio screenshot 1" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/PassFolio (3).png" alt="Passfolio screenshot 2" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/PassFolio (4).png" alt="Passfolio screenshot 3" class="proj-img-clickable" />
+                <img src="Images/Project Pictures/PassFolio (2).png" alt="Passfolio screenshot 4" class="proj-img-clickable" />
+              </div>
+              <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+              <div class="project-top">
+                <div class="project-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              </div>
+              <h3>Passfolio in One</h3>
+              <p class="proj-subtitle">Passport-Style Portfolio</p>
+              <p>A passport-style personal portfolio featuring a travel-themed layout with achievement stamps, visa-page skills, and trip logs as career milestones.</p>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CONTACT ──────────────────────── -->
+      <section class="tab-panel" id="tab-contact" role="tabpanel" style="position: relative; padding-bottom: 120px;">
+        
+        <!-- Cyber-Network Globe Background -->
+        <div class="contact-globe-container">
+          <canvas id="contactGlobe"></canvas>
+        </div>
+
+        <div class="section-inner" style="position: relative; z-index: 2; padding-top: 20px;">
+          <div class="section-label reveal">Contact</div>
+          <h2 class="section-title reveal">Let's Connect</h2>
+          <p class="section-sub reveal">Open to internships, collaborations, and junior roles.</p>
+          <div class="contact-grid">
+            <div class="contact-info tilt-card reveal">
+              <h3>Reach me directly</h3>
+              <p class="contact-desc">Feel free to reach out via email or connect on GitHub and LinkedIn.</p>
+              <div class="contact-links">
+                <a href="mailto:jmayor.devhub@gmail.com" class="clink"><span class="clink-icon">✉️</span><div><span class="clink-label">Email</span><span class="clink-value">jmayor.devhub@gmail.com</span></div><span class="clink-arrow">↗</span></a>
+                <a href="https://github.com/JGIL-22" target="_blank" rel="noopener" class="clink"><span class="clink-icon">🐙</span><div><span class="clink-label">GitHub</span><span class="clink-value">github.com/JGIL-22</span></div><span class="clink-arrow">↗</span></a>
+                <a href="https://www.linkedin.com/in/johngil-mayor22/" target="_blank" rel="noopener" class="clink"><span class="clink-icon">💼</span><div><span class="clink-label">LinkedIn</span><span class="clink-value">linkedin.com/in/johngil-mayor22/</span></div><span class="clink-arrow">↗</span></a>
+              </div>
+            </div>
+            <form class="contact-form tilt-card reveal reveal-delay" id="devContactForm" novalidate>
+              <div class="form-row">
+                <div class="form-field"><label for="fname">Full Name</label><input id="fname" type="text" placeholder="Your name" required autocomplete="name"/></div>
+                <div class="form-field"><label for="femail">Email Address</label><input id="femail" type="email" placeholder="@gmail.com / @outlook.com" required autocomplete="email"/></div>
+              </div>
+              <div class="form-field"><label for="fsubject">Subject</label><input id="fsubject" type="text" placeholder="Subject of your message" required /></div>
+              <div class="form-field"><label for="fmsg">Message</label><textarea id="fmsg" placeholder="Write your message here..." required></textarea></div>
+              <button type="submit" class="btn-primary full contact-submit-btn btn-steady">Send Message</button>
+
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- DEV FOOTER -->
+    <footer class="footer dev-footer">
+      <div class="footer-inner">
+        <div class="footer-brand"><span class="brand-mark small">JG</span><span>John Gil Mayor</span></div>
+        <p class="footer-sub">BSIT · PUP · Built with HTML, CSS &amp; JS</p>
+        <div class="footer-links">
+          <button class="ftab" data-tab="home">Home</button>
+          <button class="ftab" data-tab="about">About</button>
+          <button class="ftab" data-tab="events">Events</button>
+          <button class="ftab" data-tab="works">Works</button>
+          <button class="ftab" data-tab="contact">Contact</button>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/JgTrek/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/jm_voyor/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/johngil-mayor22/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/JGIL-22" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </div>
+        <div class="footer-address">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Paranaque City, Metro Manila, Philippines, 1700</span>
+          <span class="footer-addr-sep">·</span>
+          <i class="fa-solid fa-phone"></i>
+          <span>09692980415</span>
+        </div>
+        <p class="footer-copy">© <span class="yr"></span> John Gil Mayor. All rights reserved.</p>
+      </div>
+    </footer>
+  </div><!-- /devMode -->
+
+
+  <!-- ═══════════════════════════════════════
+       AIR MODE  — Clean, light, corporate
+  ═══════════════════════════════════════ -->
+  <div id="airMode" class="mode-layer">
+    <div id="airAmbientBg" aria-hidden="true">
+      <div class="wind-line wl1"></div>
+      <div class="wind-line wl2"></div>
+      <div class="wind-line wl3"></div>
+      <div class="wind-line wl4"></div>
+      <div class="wind-line wl5"></div>
+      <div class="wind-line wl6"></div>
+    </div>
+
+    <!-- CLOUD CANVAS (Air Mode animated background) -->
+    <canvas id="airCloudCanvas" aria-hidden="true"></canvas>
+
+    <main class="s-main">
+
+      <!-- ── S-HOME ──────────────────────── -->
+      <section class="s-tab-panel s-active" id="stab-home" role="tabpanel">
+        <div class="s-section s-hero-section">
+          <div class="s-container">
+            <div class="s-hero">
+              <div class="s-hero-text">
+                <p class="s-eyebrow s-reveal">Bachelor of Science in Information Technology</p>
+                <h1 class="s-name s-reveal">John Gil Mayor</h1>
+                <p class="s-tagline s-reveal">Full-Stack Dev &nbsp;·&nbsp; UI/UX &nbsp;·&nbsp; Cybersecurity &nbsp;·&nbsp; Blockchain &nbsp;·&nbsp; Cloud</p>
+                <p class="s-intro s-reveal">
+                  A graduating IT student from the Polytechnic University of the Philippines with hands-on experience
+                  building civic tech platforms, UI dashboards, and academic systems. Eager to contribute
+                  to a team as a junior developer or intern.
+                </p>
+                <div class="s-hero-actions s-reveal">
+                  <button class="s-btn-primary" data-stab="works">View Projects</button>
+                  <button class="s-btn-outline" data-stab="contact">Get in Touch</button>
+                </div>
+              </div>
+              <div class="s-hero-card s-reveal">
+                <div class="s-avatar">
+                  <img src="Images/extracted_img_e4da1584.png" alt="John Gil Mayor" class="s-id-photo" style="width:100%;height:100%;object-fit:cover;object-position:top;border-radius:50%;" />
+                </div>
+                <h3>John Gil Mayor</h3>
+                <p>BSIT · PUP · Class of 2026</p>
+                <div class="s-divider"></div>
+                <div class="s-card-stats">
+                  <div class="s-cs"><strong>10+</strong><span>Certificates</span></div>
+                  <div class="s-cs"><strong>5+</strong><span>IT Events joined</span></div>
+                  <div class="s-cs"><strong>3+</strong><span>Projects</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2×2 Picture Grid (Home) -->
+            <div class="s-pic-grid-label s-reveal">Photo Gallery</div>
+            <div class="s-pic-grid s-reveal">
+              <div class="s-pic-cell"><img src="Images/extracted_img_07a5c3ef.jpg" alt="Gallery 1" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" /></div>
+              <div class="s-pic-cell"><img src="Images/extracted_img_34b95a1a.jpg" alt="Gallery 2" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" /></div>
+              <div class="s-pic-cell"><img src="Images/extracted_img_4b6640c8.jpg" alt="Gallery 3" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" /></div>
+              <div class="s-pic-cell"><img src="Images/extracted_img_51594511.jpg" alt="Gallery 4" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" /></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── S-ABOUT + SKILLS ────────────── -->
+      <section class="s-tab-panel" id="stab-about" role="tabpanel">
+        <div class="s-section">
+          <div class="s-container">
+            <div class="s-section-head s-reveal">
+              <span class="s-label">About</span>
+              <h2 class="s-title">Professional Summary</h2>
+            </div>
+            <div class="s-about-grid">
+              <div class="s-about-text s-reveal">
+                <p>
+                  I am a final-year BSIT student at PUP with a strong foundation in frontend development,
+                  UI/UX design, and software systems. Throughout my academic journey, I have built
+                  production-quality web applications — most notably a barangay digital services platform
+                  and a government ID validation system.
+                </p>
+                <p>
+                  I am driven by a genuine interest in creating digital tools that solve real problems
+                  for real people. I work well both independently and in teams, and I am comfortable
+                  collaborating across disciplines.
+                </p>
+                <p>
+                  I am currently seeking an <strong>internship or entry-level role</strong> in software development,
+                  frontend engineering, or quality assurance at a company where I can grow and contribute meaningfully.
+                </p>
+              </div>
+              <div class="s-about-aside s-reveal">
+                <div class="s-info-block">
+                  <div class="s-info-row"><span class="s-info-label">Degree</span><span>BSIT — Graduating 2026</span></div>
+                  <div class="s-info-row"><span class="s-info-label">School</span><span>Polytechnic University of the Philippines</span></div>
+                  <div class="s-info-row"><span class="s-info-label">Focus</span><span>Full-Stack Development, UI/UX Designing, Cybersecurity, BlockChain Technology</span></div>
+                  <div class="s-info-row"><span class="s-info-label">Location</span><span>Paranaque City, Metro Manila, Philippines</span></div>
+                  <div class="s-info-row"><span class="s-info-label">Status</span><span class="s-available">Open to Opportunities</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Corporate Picture -->
+            <div class="s-section-head s-reveal" style="margin-top:60px">
+              <span class="s-label">Professional</span>
+              <h2 class="s-title">Corporate Photo</h2>
+            </div>
+            <div class="s-corporate-pic-wrap s-reveal">
+              <div class="s-corporate-pic" style="overflow:hidden;border-radius:16px;">
+                <img src="Images/extracted_img_6801255d.jpg" alt="John Gil Mayor — Corporate Photo" style="width:100%;height:100%;object-fit:cover;object-position:top;" />
+              </div>
+              <div class="s-corporate-info">
+                <h3>John Gil Mayor</h3>
+                <p class="s-corporate-role">Frontend Developer · UI/UX Designer</p>
+                <p class="s-corporate-desc">
+                  Graduating BSIT student from PUP with demonstrated experience in building
+                  full-scale web applications. Passionate about creating user-centered digital
+                  experiences that make a difference.
+                </p>
+                <div class="s-corp-chips">
+                  <span>Frontend Dev</span>
+                  <span>UI/UX Design</span>
+                  <span>Systems</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2×2 Picture Grid (About) -->
+            <div class="s-section-head s-reveal" style="margin-top:60px">
+              <span class="s-label">Gallery</span>
+              <h2 class="s-title">Moments</h2>
+            </div>
+            <div class="s-pic-grid s-reveal">
+              <div class="s-pic-cell"><img src="Images/extracted_img_939dd785.jpg" alt="Moment 1" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" /></div>
+              <div class="s-pic-cell"><img src="Images/extracted_img_51594511.jpg" alt="Moment 2" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" /></div>
+              <div class="s-pic-cell"><img src="Images/extracted_img_e88f74c7.jpg" alt="Moment 3" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" /></div>
+              <div class="s-pic-cell"><img src="Images/extracted_img_f4d95a25.jpg" alt="Moment 4" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" /></div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="s-section-head s-reveal" style="margin-top:60px">
+              <span class="s-label">Recognition</span>
+              <h2 class="s-title">Achievements Earned</h2>
+            </div>
+            <div class="s-achievements s-reveal">
+              <div class="s-achievement-card">
+                <div class="s-ach-icon">🏆</div>
+                <h4>President's Lister</h4>
+                <p>Recognized for academic excellence in the BSIT program at PUP PARANAQUE.</p>
+                <span class="s-ach-year">2023–2026</span>
+              </div>
+              <div class="s-achievement-card">
+                <div class="s-ach-icon">🥇</div>
+                <h4>Capstone Project Extension Project 2026</h4>
+                <p>CLICKizenship awarded as Extension Project 2026.</p>
+                <span class="s-ach-year">2026</span>
+              </div>
+              <div class="s-achievement-card">
+                <div class="s-ach-icon">📜</div>
+                <h4>Introduction to Cybersecurity</h4>
+                <p>Completed thru Cisco Netacad.</p>
+                <span class="s-ach-year">2026</span>
+              </div>
+              <div class="s-achievement-card">
+                <div class="s-ach-icon">💡</div>
+                <h4>Cosmos 2026</h4>
+                <p>Exploring Infinite Possibilities through Technology and Innovation</p>
+                <span class="s-ach-year">2026</span>
+              </div>
+            </div>
+
+            <!-- Skills: Certifications (3 rectangular) -->
+            <div class="s-section-head s-reveal" style="margin-top:60px">
+              <span class="s-label">Credentials</span>
+              <h2 class="s-title">Certifications</h2>
+            </div>
+            <div class="s-certs-row s-reveal">
+              <div class="s-cert-card">
+                <div class="s-cert-img img-placeholder-air rect-air">
+                  <i class="fa-solid fa-file-certificate"></i>
+                  <span>Certificate 1</span>
+                </div>
+                <div class="s-cert-info">
+                  <h4>Certification Name 1</h4>
+                  <p>Issuing Organization · 2024</p>
+                </div>
+              </div>
+              <div class="s-cert-card">
+                <div class="s-cert-img img-placeholder-air rect-air">
+                  <i class="fa-solid fa-file-certificate"></i>
+                  <span>Certificate 2</span>
+                </div>
+                <div class="s-cert-info">
+                  <h4>Certification Name 2</h4>
+                  <p>Issuing Organization · 2024</p>
+                </div>
+              </div>
+              <div class="s-cert-card">
+                <div class="s-cert-img img-placeholder-air rect-air">
+                  <i class="fa-solid fa-file-certificate"></i>
+                  <span>Certificate 3</span>
+                </div>
+                <div class="s-cert-info">
+                  <h4>Certification Name 3</h4>
+                  <p>Issuing Organization · 2025</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills: Cisco Badges (3 square) -->
+            <div class="s-section-head s-reveal" style="margin-top:52px">
+              <span class="s-label">Badges</span>
+              <h2 class="s-title">Cisco Badges</h2>
+            </div>
+            <div class="s-badges-row s-reveal">
+              <div class="s-badge-sq img-placeholder-air">
+                <i class="fa-solid fa-certificate"></i>
+                <span>Cisco Badge 1</span>
+              </div>
+              <div class="s-badge-sq img-placeholder-air">
+                <i class="fa-solid fa-certificate"></i>
+                <span>Cisco Badge 2</span>
+              </div>
+              <div class="s-badge-sq img-placeholder-air">
+                <i class="fa-solid fa-certificate"></i>
+                <span>Cisco Badge 3</span>
+              </div>
+            </div>
+
+            <!-- Skills (technical) -->
+            <div class="s-section-head s-reveal" style="margin-top:60px">
+              <span class="s-label">Core Skills</span>
+              <h2 class="s-title">Technical Competencies</h2>
+            </div>
+
+            <!-- Languages & Frameworks Grid -->
+            <div class="s-reveal" style="margin-bottom:40px">
+              <h4 style="font-family:'Lora',serif;font-size:16px;color:#0f1d3d;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid rgba(10,25,60,.1);">Languages & Frameworks</h4>
+              <div class="s-tech-grid">
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="32" height="32" alt="HTML5" />
+                  <span>HTML5</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="32" height="32" alt="CSS3" />
+                  <span>CSS3</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="32" height="32" alt="JavaScript" />
+                  <span>JavaScript</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" width="32" height="32" alt="PHP" />
+                  <span>PHP</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="32" height="32" alt="Python" />
+                  <span>Python</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="32" height="32" alt="MySQL" />
+                  <span>MySQL</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="32" height="32" alt="C++" />
+                  <span>C++</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="32" height="32" alt="Next.js" />
+                  <span>Next.js</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="32" height="32" alt="React" />
+                  <span>React</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" width="32" height="32" alt="Tailwind CSS" />
+                  <span>Tailwind CSS</span>
+                </div>
+                <div class="s-tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="32" height="32" alt="Git" />
+                  <span>Git</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tools & Practices -->
+            <div class="s-reveal">
+              <h4 style="font-family:'Lora',serif;font-size:16px;color:#0f1d3d;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid rgba(10,25,60,.1);">Tools & Practices</h4>
+              <ul class="s-tools-list">
+                <li>Git &amp; GitHub — Version control and collaboration</li>
+                <li>Figma — UI prototyping and wireframing</li>
+                <li>Responsive Web Design — Mobile-first layouts</li>
+                <li>REST APIs — Basic integration and consumption</li>
+                <li>QA Testing — Manual testing and bug reporting</li>
+                <li>Agile / Scrum — Team-based development workflow</li>
+                <li>Linux Basics — CLI navigation and scripting</li>
+                <li>Data Science — Python-based analysis (elective)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── S-WORKS ──────────────────────── -->
+      <section class="s-tab-panel" id="stab-works" role="tabpanel">
+        <div class="s-section">
+          <div class="s-container">
+            <div class="s-section-head s-reveal">
+              <span class="s-label">Works</span>
+              <h2 class="s-title">Selected Projects</h2>
+            </div>
+
+            <!-- AIR MODE PINNED ZONE -->
+            <div class="air-pinned-zone" id="airPinnedZone" style="display:none;">
+              <div class="air-pinned-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+                Pinned
+              </div>
+              <div class="air-pinned-list" id="airPinnedList"></div>
+            </div>
+
+            <div class="s-projects" id="airProjectsList">
+
+              <!-- 1. CLICKizenship -->
+              <div class="s-project s-proj-card s-reveal" data-spid="clickizenship">
+                <button class="s-proj-pin-btn" title="Pin to top" onclick="toggleAirPin(this,'clickizenship')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+                </button>
+                <div class="s-proj-imgs">
+                  <img src="Images/Project Pictures/CLICKizenship  (3).png" alt="CLICKizenship screenshot 1" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/CLICKizenship  (1).png" alt="CLICKizenship screenshot 2" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/CLICKizenship  (2).png" alt="CLICKizenship screenshot 3" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/CLICKizenship  (4).png" alt="CLICKizenship screenshot 4" class="proj-img-clickable" />
+                </div>
+                <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+                <div class="s-project-header">
+                  <div>
+                    <h3>CLICKizenship</h3>
+                    <p class="s-project-sub">Barangay DigiServices Request System</p>
+                  </div>
+                  <div class="s-proj-expand-hint"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+                </div>
+                <p class="s-project-desc">A frontend-focused civic technology platform designed to digitize barangay government services. Features include QR-based service flows and clean UX for non-technical residents.</p>
+                <div class="s-project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>UX Design</span></div>
+              </div>
+
+              <!-- 2. GlideN'Go -->
+              <div class="s-project s-proj-card s-reveal" data-spid="glidego">
+                <button class="s-proj-pin-btn" title="Pin to top" onclick="toggleAirPin(this,'glidego')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+                </button>
+                <div class="s-proj-imgs">
+                  <img src="Images/Project Pictures/GlideN'Go (1).png" alt="GlideN'Go screenshot 1" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/GlideN'Go (2).png" alt="GlideN'Go screenshot 2" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/GlideN'Go (3).png" alt="GlideN'Go screenshot 3" class="proj-img-clickable" />
+                </div>
+                <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+                <div class="s-project-header">
+                  <div>
+                    <h3>GlideN'Go</h3>
+                    <p class="s-project-sub">Professional Fleet &amp; Cold-Chain Logistics</p>
+                  </div>
+                  <div class="s-proj-expand-hint"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+                </div>
+                <p class="s-project-desc">A logistics management platform UI for professional fleet operations and cold-chain delivery tracking with real-time route monitoring and status dashboards.</p>
+                <div class="s-project-tags"><span>UI/UX</span><span>Figma</span><span>Logistics</span><span>Dashboards</span></div>
+              </div>
+
+              <!-- 3. LAKbayGAbayPh -->
+              <div class="s-project s-proj-card s-reveal" data-spid="lakbay">
+                <button class="s-proj-pin-btn" title="Pin to top" onclick="toggleAirPin(this,'lakbay')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+                </button>
+                <div class="s-proj-imgs">
+                  <img src="Images/Project Pictures/LAKbayGAbayPh (1).png" alt="LAKbayGAbayPh screenshot 1" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/LAKbayGAbayPh (2).png" alt="LAKbayGAbayPh screenshot 2" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/LAKbayGAbayPh (3).png" alt="LAKbayGAbayPh screenshot 3" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/LAKbayGAbayPh (4).png" alt="LAKbayGAbayPh screenshot 4" class="proj-img-clickable" />
+                </div>
+                <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+                <div class="s-project-header">
+                  <div>
+                    <h3>LAKbayGAbayPh</h3>
+                    <p class="s-project-sub">Traversing Project 82 — MapaSayo Generator</p>
+                  </div>
+                  <div class="s-proj-expand-hint"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+                </div>
+                <p class="s-project-desc">A data-driven map generator traversing all 82 provinces of the Philippines, creating personalized travel itinerary maps with route visualization and cultural highlights.</p>
+                <div class="s-project-tags"><span>Python</span><span>Maps</span><span>Data Viz</span><span>Philippines</span></div>
+              </div>
+
+              <!-- 4. OJT Attendance -->
+              <div class="s-project s-proj-card s-reveal" data-spid="ojt">
+                <button class="s-proj-pin-btn" title="Pin to top" onclick="toggleAirPin(this,'ojt')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+                </button>
+                <div class="s-proj-imgs">
+                  <img src="Images/Project Pictures/OJT ATS (3).png" alt="OJT Tracker screenshot 1" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/OJT ATS (1).png" alt="OJT Tracker screenshot 2" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/OJT ATS (2).png" alt="OJT Tracker screenshot 3" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/OJT ATS (4).png" alt="OJT Tracker screenshot 4" class="proj-img-clickable" />
+                </div>
+                <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+                <div class="s-project-header">
+                  <div>
+                    <h3>OJT Attendance Tracker</h3>
+                    <p class="s-project-sub">OJT Attendance Tracker System</p>
+                  </div>
+                  <div class="s-proj-expand-hint"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+                </div>
+                <p class="s-project-desc">A QR-code based OJT attendance system with real-time logging, reporting dashboard, and admin management controls.</p>
+                <div class="s-project-tags"><span>Python</span><span>Flask</span><span>QR Code</span><span>Reports</span></div>
+              </div>
+
+              <!-- 5. Passfolio -->
+              <div class="s-project s-proj-card s-reveal" data-spid="passfolio">
+                <button class="s-proj-pin-btn" title="Pin to top" onclick="toggleAirPin(this,'passfolio')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17.3l-6.2 4L8.2 13.9 2 9.4h7.6z"/></svg>
+                </button>
+                <div class="s-proj-imgs">
+                  <img src="Images/Project Pictures/PassFolio (1).png" alt="Passfolio screenshot 1" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/PassFolio (3).png" alt="Passfolio screenshot 2" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/PassFolio (4).png" alt="Passfolio screenshot 3" class="proj-img-clickable" />
+                  <img src="Images/Project Pictures/PassFolio (2).png" alt="Passfolio screenshot 4" class="proj-img-clickable" />
+                </div>
+                <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
+                <div class="s-project-header">
+                  <div>
+                    <h3>Passfolio in One</h3>
+                    <p class="s-project-sub">Passport-Style Portfolio</p>
+                  </div>
+                  <div class="s-proj-expand-hint"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+                </div>
+                <p class="s-project-desc">A passport-style personal portfolio featuring a travel-themed layout with achievement stamps, visa-page skills, and trip logs as career milestones.</p>
+                <div class="s-project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>UI Design</span></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── S-CONTACT ──────────────────── -->
+      <section class="s-tab-panel" id="stab-contact" role="tabpanel" style="position:relative;overflow:hidden;">
+        <!-- Air Intro-style Cloud Drift Background -->
+        <div class="air-contact-sky" aria-hidden="true">
+          <div class="air-contact-sun-glow"></div>
+          <div class="air-contact-cloud cloud-layer-c cloud-far-c"></div>
+          <div class="air-contact-cloud cloud-layer-c cloud-mid-c"></div>
+          <div class="air-contact-cloud cloud-layer-c cloud-near-c"></div>
+          <!-- Flying paper airplanes -->
+          <svg class="air-contact-plane acp1" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.3)" stroke="rgba(15,29,61,0.55)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          <svg class="air-contact-plane acp2" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.22)" stroke="rgba(15,29,61,0.45)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          <svg class="air-contact-plane acp3" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.26)" stroke="rgba(15,29,61,0.5)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          <svg class="air-contact-plane acp4" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.18)" stroke="rgba(15,29,61,0.4)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="s-section s-alt" style="position:relative;z-index:1;background:transparent;">
+          <div class="s-container">
+            <div class="s-section-head s-reveal">
+              <span class="s-label">Contact</span>
+              <h2 class="s-title">Get in Touch</h2>
+              <p class="s-section-sub">I am currently available for internships and entry-level roles. Feel free to reach out.</p>
+            </div>
+            <div class="s-contact-grid">
+              <div class="s-contact-info s-reveal">
+                <div class="s-contact-row">
+                  <span class="s-contact-label">Email</span>
+                  <a href="mailto:johngil.mayor@example.com" class="s-contact-val">jmayor@devhub@gmail.com</a>
+                </div>
+                <div class="s-contact-row">
+                  <span class="s-contact-label">Phone</span>
+                  <span class="s-contact-val">09692980415</span>
+                </div>
+                <div class="s-contact-row">
+                  <span class="s-contact-label">Location</span>
+                  <span class="s-contact-val">Paranaque City, Metro Manila, Philippines</span>
+                </div>
+                <div class="s-contact-row">
+                  <span class="s-contact-label">GitHub</span>
+                  <a href="https://github.com/JGIL-22" target="_blank" rel="noopener" class="s-contact-val">github.com/JGIL-22</a>
+                </div>
+                <div class="s-contact-row">
+                  <span class="s-contact-label">LinkedIn</span>
+                  <a href="https://www.linkedin.com/in/johngil-mayor22/" target="_blank" rel="noopener" class="s-contact-val">linkedin.com/in/johngil-mayor22/</a>
+                </div>
+              </div>
+              <form class="s-form s-reveal" id="simpleContactForm" novalidate>
+                <div class="s-form-row">
+                  <div class="s-field"><label for="sfname">Full Name</label><input id="sfname" type="text" placeholder="Your full name" required/></div>
+                  <div class="s-field"><label for="sfemail">Email Address</label><input id="sfemail" type="email" placeholder="your@email.com" required/></div>
+                </div>
+                <div class="s-field"><label for="sfsubject">Subject</label><input id="sfsubject" type="text" placeholder="e.g. Internship Inquiry"/></div>
+                <div class="s-field"><label for="sfmsg">Message</label><textarea id="sfmsg" placeholder="Write your message here..." required></textarea></div>
+                <button type="submit" class="s-btn-primary full">Send Message</button>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- AIR FOOTER -->
+    <footer class="s-footer">
+      <div class="s-container">
+        <div class="s-footer-inner">
+          <div class="s-footer-left">
+            <strong>John Gil Mayor</strong>
+            <span>BSIT · Polytechnic University of the Philippines · 2025</span>
+          </div>
+          <nav class="s-footer-nav">
+            <button class="sftab" data-stab="home">Home</button>
+            <button class="sftab" data-stab="about">About</button>
+            <button class="sftab" data-stab="works">Works</button>
+            <button class="sftab" data-stab="contact">Contact</button>
+          </nav>
+          <div class="s-footer-social">
+            <a href="https://www.facebook.com/JgTrek/" target="_blank" rel="noopener" class="s-social-link" aria-label="Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/jm_voyor/" target="_blank" rel="noopener" class="s-social-link" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/johngil-mayor22/" target="_blank" rel="noopener" class="s-social-link" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/JGIL-22" target="_blank" rel="noopener" class="s-social-link" aria-label="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
+          <div class="s-footer-address">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Paranaque City, Metro Manila, Philippines, 1700</span>
+            <span class="s-footer-sep">·</span>
+            <i class="fa-solid fa-phone"></i>
+            <span>09692980415</span>
+          </div>
+          <p class="s-footer-copy">© <span class="yr"></span> John Gil Mayor. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /airMode -->
+
+  <!-- ═══════════════════════════════════════
+       GIZMO — FurBot AI Chatbot
+  ═══════════════════════════════════════ -->
+  <button class="gizmo-toggle" id="gizmoToggle" aria-label="Open Gizmo chatbot" title="Chat with Gizmo 🐾">
+    <img src="Images/extracted_img_d29fccf4.png" alt="Gizmo" class="gizmo-toggle-img" style="width:44px;height:44px;object-fit:cover;border-radius:50%;display:block;" />
+    <span class="gizmo-notif-dot"></span>
+  </button>
+  <div class="gizmo-window" id="gizmoWindow" aria-hidden="true" role="dialog" aria-label="Gizmo FurBot AI Chat">
+    <div class="gizmo-header">
+      <div class="gizmo-avatar-wrap">
+        <img src="Images/extracted_img_d29fccf4.png" alt="Gizmo" class="gizmo-avatar-img" style="width:38px;height:38px;object-fit:cover;border-radius:50%;display:block;" />
+        <span class="gizmo-online-dot"></span>
+      </div>
+      <div class="gizmo-header-info">
+        <strong>Gizmo</strong>
+        <span>FurBot AI · Always here!</span>
+      </div>
+      <button class="gizmo-close" id="gizmoClose" aria-label="Close chat">✕</button>
+    </div>
+    <div class="gizmo-messages" id="gizmoMessages" role="log" aria-live="polite">
+      <!-- Messages injected by JS -->
+    </div>
+    <div class="gizmo-quick-replies" id="gizmoQuickReplies">
+      <button class="gizmo-quick-btn" data-quick="skills">🛠️ Skills</button>
+      <button class="gizmo-quick-btn" data-quick="projects">📁 Projects</button>
+      <button class="gizmo-quick-btn" data-quick="contact">📩 Contact</button>
+    </div>
+    <div class="gizmo-input-wrap">
+      <input type="text" id="gizmoInput" placeholder="Ask me about John Gil..." autocomplete="off" aria-label="Chat message"/>
+      <button id="gizmoSend" aria-label="Send message">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PROJECT DETAIL POPOUT (global)
+  ═══════════════════════════════════════ -->
+  <div id="projPopout" role="dialog" aria-modal="true" aria-label="Project detail view">
+    <div class="pp-backdrop"></div>
+    <div class="pp-card">
+      <button class="pp-close" id="ppClose" aria-label="Close">&times;</button>
+      <!-- Image gallery carousel -->
+      <div class="pp-gallery">
+        <div class="pp-gallery-track" id="ppGalleryTrack"></div>
+        <button class="pp-gallery-prev" id="ppGalleryPrev" aria-label="Previous image">&#8249;</button>
+        <button class="pp-gallery-next" id="ppGalleryNext" aria-label="Next image">&#8250;</button>
+        <div class="pp-gallery-dots" id="ppGalleryDots"></div>
+      </div>
+      <!-- Project info -->
+      <div class="pp-body">
+        <div class="pp-badge" id="ppBadge"></div>
+        <h2 class="pp-title" id="ppTitle"></h2>
+        <p class="pp-subtitle" id="ppSubtitle"></p>
+        <p class="pp-desc" id="ppDesc"></p>
+        <div class="pp-tags" id="ppTags"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGE LIGHTBOX (single image zoom from popout) -->
+  <div id="imgLightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <button class="lb-prev" id="lbPrev" aria-label="Previous image">&#8249;</button>
+    <button class="lb-next" id="lbNext" aria-label="Next image">&#8250;</button>
+    <div class="lb-inner">
+      <img id="lbImg" src="" alt="" />
+      <div class="lb-caption" id="lbCaption"></div>
+      <div class="lb-counter" id="lbCounter"></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/accessibility.js"></script>
+
+  <!-- Paper Plane Live Background Script (Air Mode Contact) -->
+
+  <script>
+  (function() {
+    function spawnPlane(container) {
+      const plane = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      plane.setAttribute('viewBox','0 0 64 64');
+      plane.setAttribute('fill','none');
+      plane.classList.add('air-plane');
+
+      // Random color accent
+      const colors = ['#4285F4','#0f1d3d','#34A853','#1a73e8','#5f9ea0'];
+      const c = colors[Math.floor(Math.random()*colors.length)];
+
+      plane.innerHTML = `
+        <g>
+          <path d="M4 32 L60 8 L44 56 L28 40 Z" fill="${c}" fill-opacity="0.88" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M28 40 L32 56 L44 44" fill="${c}" fill-opacity="0.5" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+          <path d="M4 32 L28 40" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+        </g>`;
+
+      const cw = container.offsetWidth || 600;
+      const ch = container.offsetHeight || 400;
+
+      // Start from random edge
+      const edge = Math.floor(Math.random()*4);
+      let x, y, angle;
+      if (edge === 0) { x = Math.random()*cw; y = -50; angle = 100 + Math.random()*40; }
+      else if (edge === 1) { x = cw+50; y = Math.random()*ch; angle = 190 + Math.random()*40; }
+      else if (edge === 2) { x = Math.random()*cw; y = ch+50; angle = 280 + Math.random()*40; }
+      else { x = -50; y = Math.random()*ch; angle = 10 + Math.random()*40; }
+
+      const dist = 250 + Math.random()*200;
+      const rad = (angle * Math.PI) / 180;
+      const dx = Math.cos(rad)*dist;
+      const dy = Math.sin(rad)*dist;
+      const dur = 3.5 + Math.random()*4;
+      const size = 28 + Math.random()*28;
+
+      plane.style.left = x+'px';
+      plane.style.top  = y+'px';
+      plane.style.width  = size+'px';
+      plane.style.height = size+'px';
+      plane.style.setProperty('--angle', angle+'deg');
+      plane.style.setProperty('--dx', dx+'px');
+      plane.style.setProperty('--dy', dy+'px');
+      plane.style.animationDuration = dur+'s';
+      plane.style.animationDelay = '0s';
+
+      container.appendChild(plane);
+      setTimeout(() => plane.remove(), (dur+0.5)*1000);
+    }
+
+    function initAirPlaneBg() {
+      const container = document.getElementById('airPlaneBg');
+      if (!container) return;
+      // Spawn planes continuously
+      let interval = setInterval(() => {
+        if (!document.getElementById('stab-contact')?.classList.contains('s-active')) return;
+        spawnPlane(container);
+      }, 700);
+      // Initial burst
+      for (let i=0; i<5; i++) {
+        setTimeout(() => {
+          if (document.getElementById('stab-contact')?.classList.contains('s-active')) spawnPlane(container);
+        }, i*300);
+      }
+    }
+
+    // Init after DOM ready, also re-burst when contact tab becomes active
+    document.addEventListener('DOMContentLoaded', function() {
+      initAirPlaneBg();
+      // Watch for tab switches
+      document.querySelectorAll('[data-stab="contact"], .sftab[data-stab="contact"]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const container = document.getElementById('airPlaneBg');
+          if (!container) return;
+          for (let i=0; i<4; i++) setTimeout(() => spawnPlane(container), i*250);
+        });
+      });
+    });
+  })();
+  </script>
+
+
+  <!-- ═══════ PAPER PLANE CANVAS BACKGROUND (Air Mode Contact) ═══════ -->
+  <script>
+  (function(){
+    var canvas, ctx, planes = [], animId = null, isRunning = false;
+
+    function initCanvas() {
+      canvas = document.getElementById('airPlaneBg');
+      if (!canvas) return false;
+      ctx = canvas.getContext('2d');
+      resizeCanvas();
+      return true;
+    }
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      var section = document.getElementById('stab-contact');
+      if (!section) return;
+      canvas.width  = section.offsetWidth  || window.innerWidth;
+      canvas.height = section.offsetHeight || window.innerHeight;
+    }
+
+    var COLORS = ['#4285F4','#1a73e8','#0a47a9','#34A853','#0f1d3d','#5b8dee'];
+
+    function createPlane() {
+      var w = canvas.width, h = canvas.height;
+      // Pick a random edge to enter from
+      var edge = Math.floor(Math.random() * 4);
+      var x, y, angle;
+      if (edge === 0) { x = Math.random()*w; y = -30;  angle = (90  + (Math.random()-0.5)*70) * Math.PI/180; }
+      else if (edge===1) { x = w+30; y = Math.random()*h; angle = (180 + (Math.random()-0.5)*70) * Math.PI/180; }
+      else if (edge===2) { x = Math.random()*w; y = h+30;  angle = (270 + (Math.random()-0.5)*70) * Math.PI/180; }
+      else               { x = -30; y = Math.random()*h; angle = (0   + (Math.random()-0.5)*70) * Math.PI/180; }
+
+      var speed = 1.4 + Math.random() * 2.2;
+      var size  = 22  + Math.random() * 26;
+      return {
+        x: x, y: y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        angle: angle,
+        size: size,
+        color: COLORS[Math.floor(Math.random()*COLORS.length)],
+        opacity: 0,
+        life: 0,
+        maxLife: 180 + Math.floor(Math.random()*120)
+      };
+    }
+
+    function drawPlane(p) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.globalAlpha = p.opacity;
+
+      var s = p.size;
+      // Paper plane shape
+      ctx.beginPath();
+      ctx.moveTo(s * 0.9, 0);          // nose
+      ctx.lineTo(-s * 0.5,  s * 0.45); // bottom-left wing
+      ctx.lineTo(-s * 0.15, 0);        // center notch
+      ctx.lineTo(-s * 0.5, -s * 0.45); // top-left wing
+      ctx.closePath();
+      ctx.fillStyle = p.color;
+      ctx.fill();
+
+      // Wing fold line
+      ctx.beginPath();
+      ctx.moveTo(s * 0.9, 0);
+      ctx.lineTo(-s * 0.15, 0);
+      ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      // Tail
+      ctx.beginPath();
+      ctx.moveTo(-s*0.15, 0);
+      ctx.lineTo(-s*0.5, s*0.45);
+      ctx.lineTo(-s*0.5, -s*0.45);
+      ctx.closePath();
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.opacity * 0.55;
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function tick() {
+      if (!canvas || !ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Spawn new planes
+      if (Math.random() < 0.045 && planes.length < 18) {
+        planes.push(createPlane());
+      }
+
+      for (var i = planes.length - 1; i >= 0; i--) {
+        var p = planes[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life++;
+
+        // Fade in / out
+        if (p.life < 20) p.opacity = p.life / 20;
+        else if (p.life > p.maxLife - 30) p.opacity = Math.max(0, (p.maxLife - p.life) / 30);
+        else p.opacity = 0.82;
+
+        // Remove if out of bounds or max life reached
+        if (p.life >= p.maxLife ||
+            p.x < -80 || p.x > canvas.width  + 80 ||
+            p.y < -80 || p.y > canvas.height + 80) {
+          planes.splice(i, 1);
+          continue;
+        }
+        drawPlane(p);
+      }
+      animId = requestAnimationFrame(tick);
+    }
+
+    function startAnimation() {
+      if (isRunning) return;
+      isRunning = true;
+      if (!canvas || !ctx) { if (!initCanvas()) return; }
+      resizeCanvas();
+      // Initial burst
+      for (var i = 0; i < 6; i++) planes.push(createPlane());
+      tick();
+    }
+
+    function stopAnimation() {
+      isRunning = false;
+      if (animId) { cancelAnimationFrame(animId); animId = null; }
+      if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+      planes = [];
+    }
+
+    function isContactActive() {
+      var el = document.getElementById('stab-contact');
+      return el && (el.classList.contains('s-active') || el.style.display !== 'none');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Watch for any click that activates the contact tab
+      document.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-stab]');
+        if (!btn) return;
+        setTimeout(function() {
+          if (isContactActive()) startAnimation();
+          else stopAnimation();
+        }, 100);
+      });
+
+      // Also hook into the existing tab switching mechanism
+      // Poll briefly on load and whenever airMode becomes visible
+      var observer = new MutationObserver(function() {
+        if (isContactActive()) startAnimation();
+        else if (!isContactActive() && isRunning) stopAnimation();
+      });
+      var stab = document.getElementById('stab-contact');
+      if (stab) observer.observe(stab, { attributes: true, attributeFilter: ['class', 'style'] });
+    });
+  })();
+  </script>
+
+
+
+  </div><!-- /acc-filter-wrap -->
+
+</body>
+</html>
