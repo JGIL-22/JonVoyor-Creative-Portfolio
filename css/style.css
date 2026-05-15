@@ -1029,7 +1029,7 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.6); }
 
 /* Air Hero Card */
 .s-hero-card {
-  width: min(400px, 100%);
+  width: min(350px, 100%);
   max-width: 400px;
   background: linear-gradient(135deg, #1a3a6e 0%, #0f2851 100%);
   border: 1.5px solid rgba(255,255,255,.15);
@@ -1068,8 +1068,8 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.6); }
 .s-hero-card:hover::after { transform: translateX(100%); }
 .s-avatar { margin: 0 auto 12px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 1; }
 .s-id-photo {
-  width: 180px;
-  height: 240px;
+  width: 210px;
+  height: 260px;
   border-radius: 18px;
   object-fit: cover;
   object-position: top;
