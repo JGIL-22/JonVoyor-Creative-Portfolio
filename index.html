@@ -86,6 +86,7 @@
       <svg class="paper-plane pp3" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.3)" stroke="rgba(15,29,61,0.55)" stroke-width="1.2" stroke-linejoin="round"/></svg>
       <svg class="paper-plane pp4" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.2)" stroke="rgba(15,29,61,0.45)" stroke-width="1.2" stroke-linejoin="round"/></svg>
       <svg class="paper-plane pp5" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.28)" stroke="rgba(15,29,61,0.5)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      <svg class="paper-plane pp6" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="rgba(15,29,61,0.40)" stroke="rgba(15,29,61,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg>
     </div>
     <div class="air-intro-content">
       <svg class="air-intro-icon" viewBox="0 0 24 24" fill="none" stroke="#0f1d3d" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
@@ -115,8 +116,26 @@
   <!-- MOBILE DRAWER -->
   <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
   <nav class="drawer" id="drawer" aria-label="Mobile navigation">
-    <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
-    <div class="drawer-brand"><span class="jv-jon">Jon</span><span class="jv-voyor">Voyor</span></div>
+    <div class="drawer-header" style="display: flex; justify-content: flex-end; align-items: center; gap: 16px; margin-bottom: 28px;">
+      <button class="mode-toggle tele-btn" id="modeToggleMobile" aria-label="Switch portfolio mode" style="margin-bottom: 0;">
+        <img src="Images/Logos/rocket.gif" alt="Dev Mode" class="tele-icon icon-dev" style="width:36px;height:36px;object-fit:cover;border-radius:50%;" />
+        <svg class="tele-icon icon-air" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;">
+          <line x1="12" y1="10" x2="12" y2="22" stroke-width="1.5" />
+          <g class="windmill-spin">
+            <path d="M12 10 L12 2 L16 6 Z" />
+            <path d="M12 10 L20 10 L16 14 Z" />
+            <path d="M12 10 L12 18 L8 14 Z" />
+            <path d="M12 10 L4 10 L8 6 Z" />
+            <circle cx="12" cy="10" r="1.5" fill="currentColor" />
+          </g>
+        </svg>
+      </button>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu" style="margin-bottom: 0;">✕</button>
+    </div>
+    <div class="drawer-brand">
+      <span class="drawer-brand-dev">John Gil's Portfolio (Dev Mode)</span>
+      <span class="drawer-brand-air">John Gil's Portfolio (Air Mode)</span>
+    </div>
     <div class="drawer-links" id="drawerLinks">
       <!-- populated by JS based on mode -->
     </div>
@@ -126,7 +145,7 @@
        NAVBAR  (shared)
   ═══════════════════════════════════════ -->
   <header class="nav" id="nav">
-    <button class="brand jonvoyor-brand" data-tab="home" aria-label="Home — JonVoyor">
+    <button class="brand jonvoyor-brand" aria-label="Home — JonVoyor">
       <div class="jv-avatar-wrap">
         <img src="Images/extracted_img_e4da1584.png" alt="John Gil Mayor" class="jv-avatar" />
         <span class="jv-avatar-ring"></span>
@@ -1002,7 +1021,6 @@ analyze(skills)</code></pre>
                 <img src="Images/Project Pictures/OJT ATS (1).png" alt="OJT Tracker screenshot 2" class="proj-img-clickable" />
                 <img src="Images/Project Pictures/OJT ATS (2).png" alt="OJT Tracker screenshot 3" class="proj-img-clickable" />
                 <img src="Images/Project Pictures/OJT ATS (4).png" alt="OJT Tracker screenshot 4" class="proj-img-clickable" />
-                <img src="Images/Project Pictures/OJT ATS (5).png" alt="OJT Tracker screenshot 5" class="proj-img-clickable" />
               </div>
               <div class="proj-imgs-hint"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> tap image to expand</div>
               <div class="project-top">
@@ -1059,7 +1077,7 @@ analyze(skills)</code></pre>
                 <a href="tel:09692980415" class="clink"><span class="clink-icon">📱</span><div><span class="clink-label">Phone</span><span class="clink-value">09692980415</span></div><span class="clink-arrow">↗</span></a>
                 <div class="clink clink-static"><span class="clink-icon">📍</span><div><span class="clink-label">Location</span><span class="clink-value">Paranaque City, Metro Manila, Philippines</span></div></div>
                 <a href="https://github.com/JGIL-22" target="_blank" rel="noopener" class="clink"><span class="clink-icon">🐙</span><div><span class="clink-label">GitHub</span><span class="clink-value">github.com/JGIL-22</span></div><span class="clink-arrow">↗</span></a>
-                <a href="https://www.linkedin.com/in/johngil-mayor22/" target="_blank" rel="noopener" class="clink"><span class="clink-icon">💼</span><div><span class="clink-label">LinkedIn</span><span class="clink-value">linkedin.com/in/johngil-mayor22/</span></div><span class="clink-arrow">↗</span></a>
+                <a href="https://www.linkedin.com/in/john-myr22/" target="_blank" rel="noopener" class="clink"><span class="clink-icon">💼</span><div><span class="clink-label">LinkedIn</span><span class="clink-value">linkedin.com/in/johngil-mayor22/</span></div><span class="clink-arrow">↗</span></a>
                 <a href="file sources/Mayor_JohnGil - Resume (ATS).pdf" download="Mayor_JohnGil - Resume (ATS).pdf" class="dev-resume-btn" aria-label="Download Resume">
                   <span class="dev-resume-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -1109,7 +1127,7 @@ analyze(skills)</code></pre>
           <a href="https://www.instagram.com/jm_voyor/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
             <i class="fa-brands fa-instagram"></i>
           </a>
-          <a href="https://www.linkedin.com/in/johngil-mayor22/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/john-myr22/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
             <i class="fa-brands fa-linkedin-in"></i>
           </a>
           <a href="https://github.com/JGIL-22" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
@@ -1629,7 +1647,7 @@ analyze(skills)</code></pre>
                 </div>
                 <div class="s-contact-row">
                   <span class="s-contact-label">LinkedIn</span>
-                  <a href="https://www.linkedin.com/in/johngil-mayor22/" target="_blank" rel="noopener" class="s-contact-val">linkedin.com/in/johngil-mayor22/</a>
+                  <a href="https://www.linkedin.com/in/john-myr22/" target="_blank" rel="noopener" class="s-contact-val">linkedin.com/in/johngil-mayor22/</a>
                 </div>
                 <div class="s-contact-row" style="margin-top: 16px; border-bottom: none;">
                   <a href="file sources/Mayor_JohnGil - Resume (ATS).pdf" target="_blank" download class="s-btn-primary full" style="justify-content: center; width: 100%; text-decoration: none;">Download Resume</a>
@@ -1673,7 +1691,7 @@ analyze(skills)</code></pre>
             <a href="https://www.instagram.com/jm_voyor/" target="_blank" rel="noopener" class="s-social-link" aria-label="Instagram">
               <i class="fa-brands fa-instagram"></i>
             </a>
-            <a href="https://www.linkedin.com/in/johngil-mayor22/" target="_blank" rel="noopener" class="s-social-link" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/john-myr22/" target="_blank" rel="noopener" class="s-social-link" aria-label="LinkedIn">
               <i class="fa-brands fa-linkedin-in"></i>
             </a>
             <a href="https://github.com/JGIL-22" target="_blank" rel="noopener" class="s-social-link" aria-label="GitHub">

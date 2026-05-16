@@ -59,6 +59,18 @@ document.addEventListener('click', e => {
   activateSimpleTab(trigger.dataset.stab);
 });
 
+// Navigate home when clicking brand logo
+document.addEventListener('click', e => {
+  const brand = e.target.closest('.jonvoyor-brand');
+  if (brand) {
+    if (ModeManager && ModeManager.getCurrentMode() === 'dev') {
+      if (typeof activateDevTab === 'function') activateDevTab('home');
+    } else {
+      if (typeof activateSimpleTab === 'function') activateSimpleTab('home');
+    }
+  }
+});
+
 /* ══════════════════════════════════════════════════════
    DRAWER LINKS  (updates based on mode)
    ══════════════════════════════════════════════════════ */
@@ -149,12 +161,18 @@ const ModeManager = (() => {
   function init() {
     applyMode(currentMode, true);
 
+    const switchModeFn = () => switchTo(currentMode === 'dev' ? 'air' : 'dev');
+
     if (modeToggle) {
-      modeToggle.addEventListener('click', () => {
-        switchTo(currentMode === 'dev' ? 'air' : 'dev');
-      });
+      modeToggle.addEventListener('click', switchModeFn);
+    }
+    
+    const modeToggleMobile = document.getElementById('modeToggleMobile');
+    if (modeToggleMobile) {
+      modeToggleMobile.addEventListener('click', switchModeFn);
     }
   }
+
 
   function getCurrentMode() { return currentMode; }
 
